@@ -1,0 +1,70 @@
+const int analogInPin = A0;  // Analog input pin that the potentiometer is attached to
+const int analogOutPin = 9; // Analog output pin that the LED is attached to
+
+int sensorValue = 0;        // value read from the pot
+int outputValue = 0;        // value output to the PWM (analog out)
+
+void setup() {
+  // initialize serial communications at 9600 bps:
+  Serial.begin(9600);
+  pinMode(analogOutPin, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+  pinMode(12, OUTPUT);
+
+  // if (outputValue > 127) {
+
+}
+
+void loop() {
+  // read the analog in value:
+  sensorValue = analogRead(analogInPin);
+  // map it to the range of the analog out:
+  outputValue = map(sensorValue, 0, 1023, 0, 255);
+  // change the analog out value:
+  //  digitalWrite(analogOutPin, outputValue);  //Changed from analogWite to digitalWrite to turn on/off
+  //instead of changing brightness
+
+  //analogWrite(analogOutPin, outputValue);
+
+  // print the results to the serial monitor:
+  Serial.print("sensor = " );
+  Serial.print(sensorValue);
+  Serial.print("\t output = ");
+  Serial.println(outputValue);
+
+  // wait 2 milliseconds before the next loop
+  // for the analog-to-digital converter to settle
+  // after the last reading:
+  delay(2);
+
+  //if (outputValue > 100 && outputValue < 255) {
+
+  if (outputValue > 127) {
+    digitalWrite (analogOutPin, LOW);
+  }
+  else {
+    digitalWrite (analogOutPin, HIGH);
+  }
+
+  if (outputValue > 127) {
+    digitalWrite (10, LOW);
+  }
+  else {
+    digitalWrite (10, HIGH);
+  }
+
+  if (outputValue > 127) {
+    digitalWrite (11, LOW);
+  }
+  else {
+    digitalWrite (11, HIGH);
+  }
+
+  if (outputValue > 127) {
+    digitalWrite (12, LOW);
+  }
+  else {
+    digitalWrite (12, HIGH);
+  }
+}
